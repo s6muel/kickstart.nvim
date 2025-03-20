@@ -94,6 +94,21 @@ vim.g.maplocalleader = ' '
 -- Set to true if you have a Nerd Font installed and selected in the terminal
 vim.g.have_nerd_font = true
 
+-- Nvim-Tree Settings
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+
+-- Enable 24-bit colour
+vim.opt.termguicolors = true
+
+-- Neovide options
+vim.o.guifont = 'B612 Mono:h12'
+vim.g.neovide_opacity = 0.9
+vim.g.neovide_normal_opacity = 0.9
+vim.g.neovide_position_animation_length = 0.15
+vim.g.neovide_scroll_animation_length = 0.3
+vim.g.neovide_cursor_animation_length = 0.05
+
 -- [[ Setting options ]]
 -- See `:help vim.opt`
 -- NOTE: You can change these options as you wish!
@@ -180,13 +195,14 @@ vim.keymap.set('n', ';', ':')
 
 -- Niceties
 vim.keymap.set('i', 'kj', '<ESC>')
-vim.keymap.set('n', 'zz', ':write<cr>')
-vim.keymap.set('n', 'ZZ', ':write<CR>:q<CR>')
+vim.keymap.set('n', 'zz', ':update<cr>')
+vim.keymap.set('n', 'ZZ', ':update<CR>:q<CR>')
 vim.keymap.set('n', '<leader>e', ':e<Space>', { desc = '[E]dit <file>' })
 vim.keymap.set('n', '<leader>q', ':q<CR>', { desc = '[Q]uit' })
 vim.keymap.set('n', '<leader>Q', ':q!<CR>', { desc = '[Q]uit without saving' })
 
-vim.keymap.set('n', '<leader>o', '<cmd>CHADopen<CR>', { desc = '[F]ile explore with Chad' })
+-- vim.keymap.set('n', '<leader>o', '<cmd>CHADopen<CR>', { desc = '[O]pen chadTREE' })
+vim.keymap.set('n', '<leader>o', '<cmd>NvimTreeToggle<CR>', { desc = '[O]pen nvim-tree' })
 
 -- Insert current date
 vim.keymap.set('i', '<F3>', '<C-R>=strftime("%Y-%m-%d")<CR>')
@@ -254,11 +270,16 @@ vim.opt.rtp:prepend(lazypath)
 require('lazy').setup({
   -- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
   'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
-  'https://gitlab.com/protesilaos/tempus-themes-vim.git',
   -- 'kamykn/spelunker.vim',
-  'ms-jpq/chadtree',
+  -- 'ms-jpq/chadtree',
   'freitass/todo.txt-vim',
   ft = 'todo',
+  {
+    'nvim-tree/nvim-tree.lua',
+    config = function()
+      require('nvim-tree').setup()
+    end,
+  },
 
   -- NOTE: Plugins can also be added by using a table,
   -- with the first argument being the link and the following
@@ -706,6 +727,8 @@ require('lazy').setup({
         cssls = {},
         html = {},
         bashls = {},
+        ts_ls = {},
+        pylsp = {},
 
         lua_ls = {
           -- cmd = { ... },
@@ -925,20 +948,57 @@ require('lazy').setup({
     -- change the command in the config to whatever the name of that colorscheme is.
     --
     -- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`.
-    'folke/tokyonight.nvim',
+    -- 'jackplus-xyz/binary.nvim',
+    'jaredgorski/Mies.vim',
+    -- 'miikanissi/modus-themes.nvim',
     priority = 1000, -- Make sure to load this before all the other start plugins.
     config = function()
       ---@diagnostic disable-next-line: missing-fields
-      require('tokyonight').setup {
-        styles = {
-          comments = { italic = false }, -- Disable italics in comments
-        },
-      }
+      -- require('tokyonight').setup {
+      --   styles = {
+      --     comments = { italic = false }, -- Disable italics in comments
+      --   },
+      -- }
+
+      -- Default modus options
+      -- require('modus-themes').setup {
+      --   -- Theme comes in two styles `modus_operandi` and `modus_vivendi`
+      --   -- `auto` will automatically set style based on background set with vim.o.background
+      --   style = 'auto',
+      --   variant = 'default', -- Theme comes in four variants `default`, `tinted`, `deuteranopia`, and `tritanopia`
+      --   transparent = false, -- Transparent background (as supported by the terminal)
+      --   dim_inactive = false, -- "non-current" windows are dimmed
+      --   hide_inactive_statusline = false, -- Hide statuslines on inactive windows. Works with the standard **StatusLine**, **LuaLine** and **mini.statusline**
+      --   line_nr_column_background = true, -- Distinct background colors in line number column. `false` will disable background color and fallback to Normal background
+      --   sign_column_background = true, -- Distinct background colors in sign column. `false` will disable background color and fallback to Normal background
+      --   styles = {
+      --     -- Style to be applied to different syntax groups
+      --     -- Value is any valid attr-list value for `:help nvim_set_hl`
+      --     comments = { italic = true },
+      --     keywords = { italic = true },
+      --     functions = {},
+      --     variables = {},
+      --   },
+
+      --- You can override specific color groups to use other groups or a hex color
+      --- Function will be called with a ColorScheme table
+      --- Refer to `extras/lua/modus_operandi.lua` or `extras/lua/modus_vivendi.lua` for the ColorScheme table
+      ---@param colors ColorScheme
+      -- on_colors = function(colors) end,
+
+      --- You can override specific highlights to use other groups or a hex color
+      --- Function will be called with a Highlights and ColorScheme table
+      --- Refer to `extras/lua/modus_operandi.lua` or `extras/lua/modus_vivendi.lua` for the Highlights and ColorScheme table
+      ---@param highlights Highlights
+      ---@param colors ColorScheme
+      --   on_highlights = function(highlights, colors) end,
+      -- }
 
       -- Load the colorscheme here.
       -- Like many other themes, this one has different styles, and you could load
       -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
-      vim.cmd.colorscheme 'tempus_totus'
+      -- vim.cmd.colorscheme 'modus'
+      vim.cmd.colorscheme 'mies'
     end,
   },
 
