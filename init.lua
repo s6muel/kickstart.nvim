@@ -276,7 +276,6 @@ require('lazy').setup({
   -- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
   'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
   -- 'kamykn/spelunker.vim',
-  -- 'ms-jpq/chadtree',
   'freitass/todo.txt-vim',
   ft = 'todo',
   {
@@ -953,54 +952,10 @@ require('lazy').setup({
     -- change the command in the config to whatever the name of that colorscheme is.
     --
     -- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`.
-    -- 'Soares/base16.nvim',
     'jaredgorski/Mies.vim',
     priority = 1000, -- Make sure to load this before all the other start plugins.
     config = function()
       ---@diagnostic disable-next-line: missing-fields
-    --   require('binary').setup {
-    --     styles = {
-    --       colors = {
-    --         fg = "#FFFFFF",
-    --         bg = "#000000",
-    --     },
-    --   }
-    -- }
-
-      -- Default modus options
-      -- require('modus-themes').setup {
-      --   -- Theme comes in two styles `modus_operandi` and `modus_vivendi`
-      --   -- `auto` will automatically set style based on background set with vim.o.background
-      --   style = 'auto',
-      --   variant = 'default', -- Theme comes in four variants `default`, `tinted`, `deuteranopia`, and `tritanopia`
-      --   transparent = false, -- Transparent background (as supported by the terminal)
-      --   dim_inactive = false, -- "non-current" windows are dimmed
-      --   hide_inactive_statusline = false, -- Hide statuslines on inactive windows. Works with the standard **StatusLine**, **LuaLine** and **mini.statusline**
-      --   line_nr_column_background = true, -- Distinct background colors in line number column. `false` will disable background color and fallback to Normal background
-      --   sign_column_background = true, -- Distinct background colors in sign column. `false` will disable background color and fallback to Normal background
-      --   styles = {
-      --     -- Style to be applied to different syntax groups
-      --     -- Value is any valid attr-list value for `:help nvim_set_hl`
-      --     comments = { italic = true },
-      --     keywords = { italic = true },
-      --     functions = {},
-      --     variables = {},
-      --   },
-
-      --- You can override specific color groups to use other groups or a hex color
-      --- Function will be called with a ColorScheme table
-      --- Refer to `extras/lua/modus_operandi.lua` or `extras/lua/modus_vivendi.lua` for the ColorScheme table
-      ---@param colors ColorScheme
-      -- on_colors = function(colors) end,
-
-      --- You can override specific highlights to use other groups or a hex color
-      --- Function will be called with a Highlights and ColorScheme table
-      --- Refer to `extras/lua/modus_operandi.lua` or `extras/lua/modus_vivendi.lua` for the Highlights and ColorScheme table
-      ---@param highlights Highlights
-      ---@param colors ColorScheme
-      --   on_highlights = function(highlights, colors) end,
-      -- }
-
       -- Load the colorscheme here.
       -- Like many other themes, this one has different styles, and you could load
       -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
